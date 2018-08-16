@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Elvis, Reone" />
+  <meta name="keywords" content="STM32," />
 
 
 
@@ -79,16 +79,20 @@
 
 
 
-<meta name="description" content="The all that I know">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Secret Base">
-<meta property="og:url" content="https://elvisass.github.io/index.html">
+<meta name="description" content="曾经只在学校里玩过51单片机，有编程基础的我觉得单片机简直太简单，写来写去也就那几个芯片管脚控制，看着电路逻辑捣鼓一下直接完事儿。 ……直到工作第一天，老板拿了块STM32的产品给我维护。从未想过从事单片机工作，也从未看过芯片资料的我，打开MCU文档的瞬间就懵逼了。  喵喵喵外设是啥？这不是中央处理器芯片的文档吗？卧槽">
+<meta name="keywords" content="STM32">
+<meta property="og:type" content="article">
+<meta property="og:title" content="STM32F4芯片的时钟系统">
+<meta property="og:url" content="https://elvisass.github.io/2017/11/28/SCM-STM32F4-Clock/index.html">
 <meta property="og:site_name" content="Secret Base">
-<meta property="og:description" content="The all that I know">
+<meta property="og:description" content="曾经只在学校里玩过51单片机，有编程基础的我觉得单片机简直太简单，写来写去也就那几个芯片管脚控制，看着电路逻辑捣鼓一下直接完事儿。 ……直到工作第一天，老板拿了块STM32的产品给我维护。从未想过从事单片机工作，也从未看过芯片资料的我，打开MCU文档的瞬间就懵逼了。  喵喵喵外设是啥？这不是中央处理器芯片的文档吗？卧槽为什么还有总线结构？这是微机原理吗！嗯终于看到IO脚了……诶你等等为什么上来就是">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://elvisass.github.io/2017/11/28/SCM-STM32F4-Clock/Clock_Tree.png">
+<meta property="og:updated_time" content="2018-08-16T05:29:01.939Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Secret Base">
-<meta name="twitter:description" content="The all that I know">
+<meta name="twitter:title" content="STM32F4芯片的时钟系统">
+<meta name="twitter:description" content="曾经只在学校里玩过51单片机，有编程基础的我觉得单片机简直太简单，写来写去也就那几个芯片管脚控制，看着电路逻辑捣鼓一下直接完事儿。 ……直到工作第一天，老板拿了块STM32的产品给我维护。从未想过从事单片机工作，也从未看过芯片资料的我，打开MCU文档的瞬间就懵逼了。  喵喵喵外设是啥？这不是中央处理器芯片的文档吗？卧槽为什么还有总线结构？这是微机原理吗！嗯终于看到IO脚了……诶你等等为什么上来就是">
+<meta name="twitter:image" content="https://elvisass.github.io/2017/11/28/SCM-STM32F4-Clock/Clock_Tree.png">
 
 
 
@@ -118,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="https://elvisass.github.io/"/>
+  <link rel="canonical" href="https://elvisass.github.io/2017/11/28/SCM-STM32F4-Clock/"/>
 
 
 
 
 
-  <title>Secret Base</title>
+  <title>STM32F4芯片的时钟系统 | Secret Base</title>
   
 
 
@@ -143,8 +147,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -227,9 +230,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -259,9 +262,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/11/28/SCM-STM32F4-Clock/" itemprop="url">STM32F4芯片的时钟系统</a></h1>
+          <h1 class="post-title" itemprop="name headline">STM32F4芯片的时钟系统</h1>
         
 
         <div class="post-meta">
@@ -311,23 +312,37 @@
       
 
       
-        
-          <p>曾经只在学校里玩过51单片机，有编程基础的我觉得单片机简直太简单，写来写去也就那几个芯片管脚控制，看着电路逻辑捣鼓一下直接完事儿。</p>
+        <p>曾经只在学校里玩过51单片机，有编程基础的我觉得单片机简直太简单，写来写去也就那几个芯片管脚控制，看着电路逻辑捣鼓一下直接完事儿。</p>
 <p>……直到工作第一天，老板拿了块STM32的产品给我维护。<br>从未想过从事单片机工作，也从未看过芯片资料的我，打开MCU文档的瞬间就懵逼了。</p>
 <blockquote>
 <p>喵喵喵外设是啥？这不是中央处理器芯片的文档吗？<br>卧槽为什么还有总线结构？这是微机原理吗！<br>嗯终于看到IO脚了……诶你等等为什么上来就是4个寄存器？<br>ADC，嗯，不就那啥逻辑电路嘛……蛤这还需要配置的？<br>喵了个大咪的目录后面那一大片功能是干啥的？</p>
 </blockquote>
 <p>感觉我以前玩的单片机可能是假的。</p>
 <p>而事实上，STM32也有以前玩的那些功能，但是因为整合了一大堆的其他功能，整个体系看起来就非常的复杂了，有些功能之间还会有相互配合。<br>只看冰山一角的话，基本等于啥都没看。</p>
-<p>要了解整个框架的话，还是得去找一本参考手册看。我这里只说明下STM32F4系列的时钟系统，以备日后自己忘记的时候有得查。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/11/28/SCM-STM32F4-Clock/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+<p>要了解整个框架的话，还是得去找一本参考手册看。我这里只说明下STM32F4系列的时钟系统，以备日后自己忘记的时候有得查。<br><a id="more"></a></p>
+<h4 id="时钟源"><a href="#时钟源" class="headerlink" title="时钟源"></a>时钟源</h4><p>MCU虽然指中央处理器，但实际上远不止那个运算核心。<br>可以这么理解，除去那个执行指令的ARM核心，其他的所有电路都叫外设。而这一大堆的电路，全部包含在MCU芯片中。</p>
+<p>数字电路的基本驱动就是时钟，时钟信号跳一下，电路的逻辑状态才会有改变。<br>而不同的外设电路需要运行在不同的频率下，有的是固定频率，有的不能太低有的不能太高。<br>这就是时钟系统的存在原因，它向外提供了不同频率的时钟。</p>
+<p>当然时钟不是无中生有的，也不是拿一堆震荡电路穷举出来的。<br>MCU内部有两个基础时钟，称为<strong>时钟源</strong>：</p>
+<ul>
+<li><strong>低速内部时钟</strong>(low-speed internal RC, <strong>LSI</strong>): 固定为<strong>32kHz</strong></li>
+<li><strong>高速内部时钟</strong>(high-speed internal RC, <strong>HSI</strong>): 固定为<strong>16MHz</strong></li>
+</ul>
+<p>嗯……可毕竟是集成电路的RC，虽然能用，但精度不是很高。<br>所以MCU提供了4个引脚，可以自己外接晶振，应对高精度的需求。<br>这两个自己接的时钟源分别称为：</p>
+<ul>
+<li><strong>低速外部时钟</strong>(low-speed external RC, <strong>LSE</strong>): 固定为<strong>32.768kHz</strong></li>
+<li><strong>高速外部时钟</strong>(high-speed external RC, <strong>HSE</strong>): <strong>4 ~ 26MHz</strong>, 看需求</li>
+</ul>
+<p>低速时钟一般是拿来给狗用的，或者给计时器用。<br>剩下的全是用高速时钟。为了统一，HSE常接16MHz，跟HSI一样。</p>
+<p>这四个时钟源可以产生其他频率的时钟，方法是：</p>
+<ul>
+<li><strong>分频</strong>: 把频率除以一定的倍数。比如4分频，就是将时钟源的频率除以4，得到一个新时钟。</li>
+<li><strong>倍频</strong>: 把频率乘以一定的倍数。比如4倍频，就是将时钟源的频率乘以4，得到一个新时钟。</li>
+</ul>
+<p>具体怎么分频怎么倍频，那是电路的事。关键是，有哪些新时钟。</p>
+<h4 id="时钟树"><a href="#时钟树" class="headerlink" title="时钟树"></a>时钟树</h4><img src="/2017/11/28/SCM-STM32F4-Clock/Clock_Tree.png" title="一图胜千言">
+<h4 id="原理与设定"><a href="#原理与设定" class="headerlink" title="原理与设定"></a>原理与设定</h4><h5 id="1-Sysclk-HCLK-FCLK"><a href="#1-Sysclk-HCLK-FCLK" class="headerlink" title="1. Sysclk, HCLK, FCLK"></a>1. Sysclk, HCLK, FCLK</h5><p><hr></p>
+<p><center><font color="red">— 封坟线 —</font></center></p>
+<font color="red"><br><p>当时没写完，后来没做STM32项目了。最复杂的时钟系统基本忘光。</p><br><p>简直完美，第一篇Blog就坑了。<del>（算了我的Blog我做主（滚</del></p></font>
       
     </div>
     
@@ -342,14 +357,20 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/STM32/" rel="tag"># STM32</a>
+          
+        </div>
+      
+
+      
+      
+      
 
       
 
       
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -359,10 +380,11 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -370,6 +392,8 @@
 
 
           
+  
+
 
         </div>
         
@@ -390,8 +414,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -444,6 +477,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#时钟源"><span class="nav-number">1.</span> <span class="nav-text">时钟源</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#时钟树"><span class="nav-number">2.</span> <span class="nav-text">时钟树</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#原理与设定"><span class="nav-number">3.</span> <span class="nav-text">原理与设定</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-Sysclk-HCLK-FCLK"><span class="nav-number">3.1.</span> <span class="nav-text">1. Sysclk, HCLK, FCLK</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -570,6 +619,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
 
   
 
