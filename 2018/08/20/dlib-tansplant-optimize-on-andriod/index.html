@@ -116,7 +116,7 @@
 <meta property="og:site_name" content="Secret Base">
 <meta property="og:description" content="我就算是饿死了,从这里跳下去,钉在在棺材里了,也要在墓里,用这腐朽的声带喊出：移植穷三代，优化毁一生！　　　　　　　　　　　　　—— 我不是 我没有 别瞎说啊">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-08-24T04:54:36.312Z">
+<meta property="og:updated_time" content="2018-08-24T05:00:04.189Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Dlib在Android上移植&#x2F;优化的坑">
 <meta name="twitter:description" content="我就算是饿死了,从这里跳下去,钉在在棺材里了,也要在墓里,用这腐朽的声带喊出：移植穷三代，优化毁一生！　　　　　　　　　　　　　—— 我不是 我没有 别瞎说啊">
@@ -352,7 +352,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-08-24 12:54:36" itemprop="dateModified" datetime="2018-08-24T12:54:36+08:00">2018-08-24</time>
+                <time title="修改时间：2018-08-24 13:00:04" itemprop="dateModified" datetime="2018-08-24T13:00:04+08:00">2018-08-24</time>
               
             
           </span>
@@ -390,7 +390,7 @@
 </blockquote>
 <a id="more"></a>
 <h1 id="0-吐槽"><a href="#0-吐槽" class="headerlink" title="0. 吐槽"></a>0. 吐槽</h1><p><del>优秀的程序猿从零开始，优秀的Blog从吐槽开始</del></p>
-<p>1、Dlib作者你为毛要把全部代码都写进头文件里啊！编译会死人啊！这样编译库还有什么意义啊！<br>2、为毛android.toolchain.cmake不更新了啊！为毛啥都有就是没有我要的LLVM STL啊！<br>3、搞了半天才发现原来我根本TM不会玩gcc那一套……更别说clang了……是在下输了</p>
+<p>1、Dlib作者你为毛要把全部代码都写进头文件里啊！编译会死人啊！这样编译库还有什么意义啊！<br>2、为毛android.toolchain.cmake不更新了啊！为毛啥都有就是没有我要的LLVM STL啊！<br>3、搞了半天才发现原来我根本TM不会玩gcc那一套……更别说clang了……是在下输了<br>4、为毛还会用到Fortran的上古工具？为毛GCC不带Arm版的gfortran？为毛Arm官网下载的toolchain包要1G+还尼玛搜不到gfortran？</p>
 <p>综上，<del>简直有毒</del> <del>无Fuck说</del> <del>心态爆炸</del> 气得去世。<br>突然发现NexT的Markdown样式自动从1开始生成段落序号，艹。</p>
 <h1 id="Android编译环境搭建"><a href="#Android编译环境搭建" class="headerlink" title="Android编译环境搭建"></a>Android编译环境搭建</h1><p>讲真，我也不知道这个编译环境到底是什么的编译环境。</p>
 <p>Android下面跑了一层超级简化的Linux。<br>按正常套路来想，Linux直接在芯片上跑，Cortex-A7什么的直接套arm_eabi_hf就行了；<br>Linux跟Android对接，虽然不知道Android上面跑了一层虚拟机是怎么对接的，但反正就是定成android_eabi了。<br>经过无数的VFP坑之后……只能全部用androideabi吗……Emmmm<br><div class="note default"><p>默认情况下，ARM 工具链生成的机器代码应与官方 Android <code>armeabi</code> ABI 兼容。<br>与此ABI兼容的设置有 <code>-mfloat-abi=softfp</code> 与 <code>-mfloat-abi=soft</code>，<a href="https://gcc.gnu.org/onlinedocs/gcc/ARM-Options.html#index-mfloat-abi" target="_blank" rel="noopener">前者使用硬浮点运算，后者使用软浮点运算</a>。<br>对于Cortex-A7内核，使用硬浮点，并利用NEON处理器，编译设置应该为：<br><code>-march=armv7-a -mfloat-abi=softfp -mfpu=neon</code><br>链接器应设置：<br><code>-march=armv7-a -Wl,--fix-cortex-a8</code><br>这样才能链接到定制的库。</p></div><br>一向信不过跑虚拟机的东西，如果效率浪费在这里就很坑了。</p>
