@@ -2,15 +2,27 @@
 
 
 
+
+
+
+
+
+
+
+
+
   
 
 
-<html class="theme-next gemini use-motion" lang="zh-Hans">
+<html class="theme-next gemini use-motion" lang="zh-CN">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
 <meta name="theme-color" content="#222">
+
+
+
 
 
 
@@ -38,10 +50,6 @@
 
 
 
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-
 
 
 
@@ -50,49 +58,25 @@
 
 <link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
 
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
 
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
 
 
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
 
 
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="STM32," />
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
 
 
 
 
 
 
-
-
-
-
-<meta name="description" content="曾经只在学校里玩过51单片机，有编程基础的我觉得单片机简直太简单，写来写去也就那几个芯片管脚控制，看着电路逻辑捣鼓一下直接完事儿。 ……直到工作第一天，老板拿了块STM32的产品给我维护。从未想过从事单片机工作，也从未看过芯片资料的我，打开MCU文档的瞬间就懵逼了。  喵喵喵外设是啥？这不是中央处理器芯片的文档吗？卧槽">
-<meta name="keywords" content="STM32">
-<meta property="og:type" content="article">
-<meta property="og:title" content="STM32F4芯片的时钟系统">
-<meta property="og:url" content="https://elvisass.github.io/2017/11/28/SCM-STM32F4-Clock/index.html">
-<meta property="og:site_name" content="Secret Base">
-<meta property="og:description" content="曾经只在学校里玩过51单片机，有编程基础的我觉得单片机简直太简单，写来写去也就那几个芯片管脚控制，看着电路逻辑捣鼓一下直接完事儿。 ……直到工作第一天，老板拿了块STM32的产品给我维护。从未想过从事单片机工作，也从未看过芯片资料的我，打开MCU文档的瞬间就懵逼了。  喵喵喵外设是啥？这不是中央处理器芯片的文档吗？卧槽为什么还有总线结构？这是微机原理吗！嗯终于看到IO脚了……诶你等等为什么上来就是">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://elvisass.github.io/2017/11/28/SCM-STM32F4-Clock/Clock_Tree.png">
-<meta property="og:updated_time" content="2018-08-16T05:29:01.939Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="STM32F4芯片的时钟系统">
-<meta name="twitter:description" content="曾经只在学校里玩过51单片机，有编程基础的我觉得单片机简直太简单，写来写去也就那几个芯片管脚控制，看着电路逻辑捣鼓一下直接完事儿。 ……直到工作第一天，老板拿了块STM32的产品给我维护。从未想过从事单片机工作，也从未看过芯片资料的我，打开MCU文档的瞬间就懵逼了。  喵喵喵外设是啥？这不是中央处理器芯片的文档吗？卧槽为什么还有总线结构？这是微机原理吗！嗯终于看到IO脚了……诶你等等为什么上来就是">
-<meta name="twitter:image" content="https://elvisass.github.io/2017/11/28/SCM-STM32F4-Clock/Clock_Tree.png">
 
 
 
@@ -101,15 +85,13 @@
   var CONFIG = {
     root: '/',
     scheme: 'Gemini',
-    version: '5.1.3',
+    version: '6.3.0',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
     algolia: {
       applicationID: '',
       apiKey: '',
@@ -121,12 +103,40 @@
 </script>
 
 
+  
+
+
+
+
+  <meta name="description" content="曾经只在学校里玩过51单片机，有编程基础的我觉得单片机简直太简单，写来写去也就那几个芯片管脚控制，看着电路逻辑捣鼓一下直接完事儿。 ……直到工作第一天，老板拿了块STM32的产品给我维护。从未想过从事单片机工作，也从未看过芯片资料的我，打开MCU文档的瞬间就懵逼了。  喵喵喵外设是啥？这不是中央处理器芯片的文档吗？卧槽为什么还有总线结构？这是微机原理吗！嗯终于看到IO脚了……诶你等等为什么上来就是">
+<meta name="keywords" content="STM32">
+<meta property="og:type" content="article">
+<meta property="og:title" content="STM32F4芯片的时钟系统">
+<meta property="og:url" content="https://elvisass.github.io/2017/11/28/SCM-STM32F4-Clock/index.html">
+<meta property="og:site_name" content="Secret Base">
+<meta property="og:description" content="曾经只在学校里玩过51单片机，有编程基础的我觉得单片机简直太简单，写来写去也就那几个芯片管脚控制，看着电路逻辑捣鼓一下直接完事儿。 ……直到工作第一天，老板拿了块STM32的产品给我维护。从未想过从事单片机工作，也从未看过芯片资料的我，打开MCU文档的瞬间就懵逼了。  喵喵喵外设是啥？这不是中央处理器芯片的文档吗？卧槽为什么还有总线结构？这是微机原理吗！嗯终于看到IO脚了……诶你等等为什么上来就是">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://elvisass.github.io/2017/11/28/SCM-STM32F4-Clock/Clock_Tree.png">
+<meta property="og:updated_time" content="2018-08-16T05:49:55.940Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="STM32F4芯片的时钟系统">
+<meta name="twitter:description" content="曾经只在学校里玩过51单片机，有编程基础的我觉得单片机简直太简单，写来写去也就那几个芯片管脚控制，看着电路逻辑捣鼓一下直接完事儿。 ……直到工作第一天，老板拿了块STM32的产品给我维护。从未想过从事单片机工作，也从未看过芯片资料的我，打开MCU文档的瞬间就懵逼了。  喵喵喵外设是啥？这不是中央处理器芯片的文档吗？卧槽为什么还有总线结构？这是微机原理吗！嗯终于看到IO脚了……诶你等等为什么上来就是">
+<meta name="twitter:image" content="https://elvisass.github.io/2017/11/28/SCM-STM32F4-Clock/Clock_Tree.png">
+
+
+
+
+
 
   <link rel="canonical" href="https://elvisass.github.io/2017/11/28/SCM-STM32F4-Clock/"/>
 
 
 
-
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
 
   <title>STM32F4芯片的时钟系统 | Secret Base</title>
   
@@ -138,9 +148,37 @@
 
 
 
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
   
   
@@ -156,19 +194,21 @@
     
 
     <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
+      <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">Secret Base</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
+    
       
         <p class="site-subtitle">Elvis & Reone's AC & Tech Blog</p>
       
+    
   </div>
 
   <div class="site-nav-toggle">
-    <button>
+    <button aria-label="切换导航栏">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -176,45 +216,42 @@
   </div>
 </div>
 
-<nav class="site-nav">
-  
 
+
+<nav class="site-nav">
   
     <ul id="menu" class="menu">
       
         
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
         
-        <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
         
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
 
       
+      
     </ul>
+  
+
   
 
   
@@ -222,12 +259,23 @@
 
 
 
- </div>
+  
+
+
+
+</div>
     </header>
+
+    
+
 
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+          
+            
+
+          
           <div id="content" class="content">
             
 
@@ -240,6 +288,8 @@
   
   
 
+  
+
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
@@ -249,7 +299,7 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Elvis">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="The all that I know">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
@@ -262,11 +312,19 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">STM32F4芯片的时钟系统</h1>
+          <h1 class="post-title" itemprop="name headline">STM32F4芯片的时钟系统
+              
+            
+          </h1>
         
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -274,13 +332,30 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-28T15:28:17+08:00">
-                2017-11-28
-              </time>
+
+              
+                
+              
+
+              <time title="创建时间：2017-11-28 15:28:17" itemprop="dateCreated datePublished" datetime="2017-11-28T15:28:17+08:00">2017-11-28</time>
             
 
             
+              
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-08-16 13:49:55" itemprop="dateModified" datetime="2018-08-16T13:49:55+08:00">2018-08-16</time>
+              
             
           </span>
 
@@ -345,6 +420,9 @@
 <font color="red"><br><p>当时没写完，后来没做STM32项目了。最复杂的时钟系统基本忘光。</p><br><p>简直完美，第一篇Blog就坑了。<del>（算了我的Blog我做主（滚</del></p></font>
       
     </div>
+
+    
+
     
     
     
@@ -369,6 +447,22 @@
       
 
       
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/20/dlib-tansplant-optimize-on-andriod/" rel="prev" title="Dlib在Android上移植/优化的坑">
+                Dlib在Android上移植/优化的坑 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
 
       
       
@@ -380,19 +474,14 @@
   </article>
 
 
-
-    <div class="post-spread">
-      
-    </div>
   </div>
 
 
           </div>
           
 
-
-          
   
+
 
 
         </div>
@@ -432,46 +521,61 @@
               <p class="site-description motion-element" itemprop="description">The all that I know</p>
           </div>
 
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
+          
+            <nav class="site-state motion-element">
               
-                <a href="/archives/">
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
               
-                  <span class="site-state-item-count">1</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
 
-            
-
-            
               
+
               
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">1</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
             
-
-          </nav>
-
           
-
-          <div class="links-of-author motion-element">
-            
-          </div>
-
-          
-          
-
-          
-          
-
           
 
         </div>
@@ -508,16 +612,20 @@
     <footer id="footer" class="footer">
       <div class="footer-inner">
         <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
-  <span class="with-love">
+  <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Elvis</span>
 
   
+
+  
 </div>
 
 
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.7.1</div>
 
 
 
@@ -525,12 +633,13 @@
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
+  <div class="theme-info">主题 – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Gemini</a> v6.3.0</div>
 
 
 
 
         
+
 
 
 
@@ -549,6 +658,11 @@
       </div>
     
 
+    
+	
+    
+
+    
   </div>
 
   
@@ -567,7 +681,6 @@
 
 
 
-  
 
 
 
@@ -580,68 +693,56 @@
 
 
 
-  
-  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-
-  
-  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
 
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
 
 
 
   
   
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
-
-
-
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
   
 
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
-
-
-
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
   
 
 
   
 
 
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
 
 
-	
+
+  
+  
 
 
+  <script type="text/javascript" src="/js/src/affix.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.3.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
 
 
 
@@ -649,9 +750,9 @@
 
 
 
-
-
   
+
+
 
 
 
@@ -666,6 +767,15 @@
 
 
 
+  
+
+  
+
+  
+
+  
+
+  
   
 
   
